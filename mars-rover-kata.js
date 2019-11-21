@@ -3,7 +3,7 @@ let roverOne = {
   direction: "N",
   x: 0,
   y: 0,
-  travelLog: [],
+  travelLog: []
 }
 
 let roverTwo = {
@@ -14,11 +14,9 @@ let roverTwo = {
   travelLog: []
 }
 
-let playersTurn = true; // variável cujo valor será alterado ao fim de cada jogada.
-
 let board = [
   ['R1','','','','','','','','',''],
-  ['','','','','','','','O','O',''],
+  ['','','','','','','','O','O',''], 
   ['','','','','','','','','',''],
   ['','','','O','','','','','',''],
   ['','','','','','','','','',''],
@@ -98,7 +96,7 @@ function moveForward(rover){
           rover.y--;  // atualiza a propriedade y
           rover.travelLog.push(`[${rover.x}, ${rover.y}]`);  // atualiza travelLog
         }
-      } else if (rover.y = 0) {  // caso a questão seja a borda
+      } else if (rover.y === 0) {  // caso a questão seja a borda
           console.log(`The rover cannot leave the grid!`);
         }
       break;
@@ -111,7 +109,7 @@ function moveForward(rover){
           rover.x--;
           rover.travelLog.push(`[${rover.x}, ${rover.y}]`);
         }
-      } else if (rover.x = 0) {
+      } else if (rover.x === 0) {
           console.log(`The rover cannot leave the grid!`);
         }
       break;
@@ -124,7 +122,7 @@ function moveForward(rover){
           rover.y++;
           rover.travelLog.push(`[${rover.x}, ${rover.y}]`);
         }
-      } else if (rover.y = 9) {
+      } else if (rover.y === 9) {
           console.log(`The rover cannot leave the grid!`);
         }
       break;
@@ -137,7 +135,7 @@ function moveForward(rover){
           rover.x++;
           rover.travelLog.push(`[${rover.x}, ${rover.y}]`);
         }
-      } else if (rover.x = 9) {
+      } else if (rover.x === 9) {
           console.log(`The rover cannot leave the grid!`);
         }
       break;
@@ -156,7 +154,7 @@ function moveBackward(rover){
           rover.y++;
           rover.travelLog.push(`[${rover.x}, ${rover.y}]`);
         }
-      } else if (rover.y = 9) {
+      } else if (rover.y === 9) {
           console.log(`The rover cannot leave the grid!`);
         }
       break;
@@ -169,7 +167,7 @@ function moveBackward(rover){
           rover.x++;
           rover.travelLog.push(`[${rover.x}, ${rover.y}]`);
         }
-      } else if (rover.x = 9) {
+      } else if (rover.x === 9) {
           console.log(`The rover cannot leave the grid!`);
         }
       break;
@@ -182,7 +180,7 @@ function moveBackward(rover){
           rover.y--;
           rover.travelLog.push(`[${rover.x}, ${rover.y}]`);
         }
-      } else if (rover.y = 0) {
+      } else if (rover.y === 0) {
           console.log(`The rover cannot leave the grid!`);
         }
       break;
@@ -195,60 +193,38 @@ function moveBackward(rover){
           rover.x--;
           rover.travelLog.push(`[${rover.x}, ${rover.y}]`);
         }
-      } else if (rover.x = 0) {
+      } else if (rover.x === 0) {
           console.log(`The rover cannot leave the grid!`);
         }
       break;
   }
 }
 
-function roverCommand(commands) {
-  function whichRover() {
-    if (playersTurn) {
-      return roverOne;
-    } else {
-      return roverTwo;
-    }
-  }
-  function whichName() {
-    if (playersTurn) {
-      return roverOne.name;
-    } else {
-      return roverTwo.name;
-    }
-  }
-  function whichTravelLog() {
-    if (playersTurn) {
-      return roverOne.travelLog;
-    } else {
-      return roverTwo.travelLog;
-    }
-  }
-  console.log(`${whichName()}'s move: ${commands}`);
+function roverCommand(commands, rover) {
+  console.log(`${rover.name}'s move: ${commands}`);
   for (let i = 0; i < commands.length; i++) {
    switch (commands.charAt(i)) {
       case "l":
-        turnLeft(whichRover());
+        turnLeft(rover);
         break;
       case "r":
-        turnRight(whichRover());
+        turnRight(rover);
         break;
       case "f":
-        moveForward(whichRover());
+        moveForward(rover);
         break;
       case "b":
-        moveBackward(whichRover());
+        moveBackward(rover);
         break;
       default:
        console.log(`Invalid input. The rover only accepts the following commands: l, r, f, b.`);
        break;
     }
   }
-  console.log(`${whichName()}'s travel log: ${whichTravelLog()}`);
-  playersTurn = !playersTurn;  // muda o jogador
+  console.log(`${rover.name}'s travel log: ${rover.travelLog}`);
 }
 
 // teste aqui:
-// roverCommand("rffrffff"); // movimenta roverOne sem problemas
-// roverCommand("rfflfff");  // movimenta roverTwo até encontrar obstáculo
-// roverCommand("ffffff")    // movimenta roverOne até chegar à borda
+// roverCommand("rffrffff", roverOne); // movimenta roverOne sem problemas
+// roverCommand("rfflfff", roverTwo);  // movimenta roverTwo até encontrar obstáculo
+// roverCommand("ffffff", roverOne);    // movimenta roverOne até chegar à borda
