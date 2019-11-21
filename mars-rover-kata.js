@@ -202,6 +202,10 @@ function moveBackward(rover){
 
 function roverCommand(commands, rover) {
   console.log(`${rover.name}'s move: ${commands}`);
+  console.log(rover.travelLog);
+  if (rover.travelLog.length === 0) {
+    rover.travelLog.push(`[${rover.x}, ${rover.y}]`);
+  }
   for (let i = 0; i < commands.length; i++) {
    switch (commands.charAt(i)) {
       case "l":
@@ -225,6 +229,6 @@ function roverCommand(commands, rover) {
 }
 
 // teste aqui:
-// roverCommand("rffrffff", roverOne); // movimenta roverOne sem problemas
+//roverCommand("rffrffff", roverOne); // movimenta roverOne sem problemas
 // roverCommand("rfflfff", roverTwo);  // movimenta roverTwo até encontrar obstáculo
-// roverCommand("ffffff", roverOne);    // movimenta roverOne até chegar à borda
+ roverCommand("ffffff", roverOne);    // movimenta roverOne até chegar à borda
